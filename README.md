@@ -14,7 +14,7 @@ This Discord bot generates a playlist of 50 or more songs based on a text prompt
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/discord-playlist-bot.git
+   https://github.com/fuzzeaux740/discord-prompt-music-bot
    ```
 
 2. Navigate to the project directory:
