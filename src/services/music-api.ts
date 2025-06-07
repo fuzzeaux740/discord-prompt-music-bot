@@ -1,28 +1,39 @@
-// src/services/music-api.ts
+import { searchYoutube } from 'youtube-search-api';
 
-export class MusicAPI {
-    private apiKey: string;
+export interface Song {
+  title: string;
+  artist: string;
+  genre?: string;
+  youtubeUrl?: string;
+}
 
-    constructor(apiKey: string) {
-        this.apiKey = apiKey;
+export class PlaylistGenerator {
+  async generatePlaylist(prompt: string): Promise<Song[]> {
+    try {
+      const results = await searchYoutube(prompt + " song", { 
+        maxResults: 5 
+      });
+
+      return results.items.map((video) => {
+        // Extract artist and title from video title
+        const parts = video.title.split(' - ');
+        const artist = parts.length > 1 ? parts[0] : 'Unknown';
+        const title = parts.length > 1 ? parts[1] : video.title;
+
+        return {
+          title: title,
+          artist: artist,
+          genre: 'Music',
+          youtubeUrl: `https://www.youtube.com/watch?v=${video.id}`
+        };
+      });
+    } catch (error) {
+      console.error('Error searching YouTube:', error);
+      return [
+        { title: "Happy", artist: "Pharrell Williams", youtubeUrl: "https://www.youtube.com/watch?v=ZbZSe6N_BXs" },
+        { title: "Good Vibrations", artist: "The Beach Boys", youtubeUrl: "https://www.youtube.com/watch?v=Eab_beh07HU" },
+        { title: "Walking on Sunshine", artist: "Katrina & The Waves", youtubeUrl: "https://www.youtube.com/watch?v=iPUmE-tne5U" }
+      ];
     }
-
-    async fetchSongData(songId: string): Promise<any> {
-        // Logic to interact with external music API to fetch song data
-        const response = await fetch(`https://api.example.com/songs/${songId}?api_key=${this.apiKey}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch song data');
-        }
-        return response.json();
-    }
-
-    async searchSongs(query: string): Promise<any[]> {
-        // Logic to search for songs based on a query
-        const response = await fetch(`https://api.example.com/search?q=${encodeURIComponent(query)}&api_key=${this.apiKey}`);
-        if (!response.ok) {
-            throw new Error('Failed to search for songs');
-        }
-        const data = await response.json();
-        return data.songs; // Assuming the API returns an array of songs
-    }
+  }
 }
