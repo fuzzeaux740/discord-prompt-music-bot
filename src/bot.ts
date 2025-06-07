@@ -37,7 +37,7 @@ client.on('messageCreate', async (message) => {
         .addFields(
           songs.map(song => ({
             name: song.title,
-            value: `by ${song.artist} (${song.genre || 'Unknown genre'})`
+            value: `by ${song.artist}${song.genre ? ` (${song.genre})` : ''}\n${song.youtubeUrl ? `[Watch on YouTube](${song.youtubeUrl})` : ''}`
           }))
         );
 
