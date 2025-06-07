@@ -1,20 +1,17 @@
-// src/services/playlist-generator.ts
+export interface Song {
+  title: string;
+  artist: string;
+  genre?: string;
+}
 
 export class PlaylistGenerator {
-    private musicAPI: MusicAPI;
-
-    constructor() {
-        this.musicAPI = new MusicAPI();
-    }
-
-    public async generatePlaylist(prompt: string): Promise<Song[]> {
-        const songs = await this.fetchSongs(prompt);
-        return songs.slice(0, 50); // Limit to 50 songs
-    }
-
-    private async fetchSongs(prompt: string): Promise<Song[]> {
-        // Logic to interact with the MusicAPI and fetch songs based on the prompt
-        const songData = await this.musicAPI.searchSongs(prompt);
-        return songData; // Assuming songData is an array of Song objects
-    }
+  // Temporary mock implementation
+  async generatePlaylist(prompt: string): Promise<Song[]> {
+    // Mock data for testing
+    return [
+      { title: "Happy", artist: "Pharrell Williams", genre: "Pop" },
+      { title: "Good Vibrations", artist: "The Beach Boys", genre: "Rock" },
+      { title: "Walking on Sunshine", artist: "Katrina & The Waves", genre: "Pop" }
+    ];
+  }
 }
