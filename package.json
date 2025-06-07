@@ -1,0 +1,20 @@
+{
+  "name": "discord-playlist-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot that generates playlists from text prompts",
+  "main": "dist/bot.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/bot.js",
+    "dev": "ts-node src/bot.ts"
+  },
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "ts-node": "^10.9.1", 
+    "typescript": "^5.0.4"
+  }
+}
