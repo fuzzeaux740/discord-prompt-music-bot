@@ -18,9 +18,15 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', async (message) => {
+  // Ignore messages from bots (including itself)
+  if (message.author.bot) return;
+
   if (message.content.startsWith('!generate')) {
     const prompt = message.content.slice(9);
-    message.reply('Generating playlist for: ' + prompt);
+    await message.channel.sendTyping();
+    await message.reply({
+      content: `🎵 Generating playlist for: "${prompt}"\nPlease wait while I create your playlist...`,
+    });
   }
 });
 
